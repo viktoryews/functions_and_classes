@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Задание 2</title>
-</head>
-<body>
-    <p>
-        <label for="comment" class="comment">Ваш комментарий:</label><br/>
-        <textarea class="text" placeholder="Не менее 50 и не более 500 символов" maxlength="500" minlength="50"></textarea>   
-    </p>
-    <p>
-        <button type="submit"  class="button">Отправить</button>
-    </p>
-    <div class="printBlock"></div>
-    <script >
+  </head>
+  <body>
     
-    let comment = document.querySelector('.comment');
-    let text = document.querySelector('.text');
-    let button = document.querySelector('.button');
-    let printBlock = document.querySelector('.printBlock');
+    <label class="label-comment">Ваш комментарий:</label>
+    <br />
+    <textarea class="user-input" placeholder="Не менее 50 и не более 500 символов" maxlength="500" minlength="50" ></textarea>
+    <br />
+    <br />
+    <button type="submit" class="button">Отправить</button>
+    <div class="printBlock"></div>
+    <div class="errorMessage"></div>
+    <script>
 
-    button.addEventListener('click', () => {
+      let stringInput = document.querySelector(".user-input");
+      let button = document.querySelector(".button");
+      let printBlock = document.querySelector(".printBlock");
+      let errorMessage = document.querySelector(".errorMessage");
+
+    button.addEventListener('click',() => {
         try{
-            if(text.value.length < 50 && text.value.length > 500){
+            const string = stringInput.value;
+            if(string.length < 50 || string.length > 500){
+               
                 throw new Error('Комментарий не может быть менее 50 или более 500 символов');
+            } else {
+                const pElem = document.createElement('p');
+                pElem.textContent = string;
+                printBlock.appendChild(pElem);
+                errorMessage.textContent = '';
             }
-            if(comment.value.length == 0){
-                throw new Error('Комментарий не может быть пустым');
-            }
+        } catch(error){
+         errorMessage.textContent = error.message;
+        } finally {
+            console.log('Попытка добавления коментария завершена');
         }
-        catch(error){
-          e.message = error.message;
-        }
-        printBlock.innerHTML = `<p>Комментарий: ${text.value}</p>`;
     });
     </script>
-</body>
+  </body>
 </html>

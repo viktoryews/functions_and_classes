@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Работа с функциями и классами</title>
+</head>
+<body>
+    <p>
+        <label for="comment" class="comment">Ваш комментарий:</label><br/>
+        <textarea class="text" placeholder="Не менее 50 и не более 500 символов" maxlength="500" minlength="50"></textarea>   
+    </p>
+    <p>
+        <button type="submit"  class="button">Отправить</button>
+    </p>
+    <div class="printBlock"></div>
+    <script >
+    
+    let comment = document.querySelector('.comment');
+    let text = document.querySelector('.text');
+    let button = document.querySelector('.button');
+    let printBlock = document.querySelector('.printBlock');
+
+    button.addEventListener('click', () => {
+        try{
+            if(text.value.length < 50 && text.value.length > 500){
+                throw new Error('Комментарий не может быть менее 50 или более 500 символов');
+            }
+            if(comment.value.length == 0){
+                throw new Error('Комментарий не может быть пустым');
+            }
+        }
+        catch(error){
+          e.message = error.message;
+        }
+        printBlock.innerHTML = `<p>Комментарий: ${text.value}</p>`;
+    });
+    </script>
+</body>
+</html>
